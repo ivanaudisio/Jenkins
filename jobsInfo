@@ -1,0 +1,36 @@
+Hudson.instance.items.each { job ->
+
+	def jobType = "${job.class}"
+	def today = new Date().format( 'E MMM dd H:m:s z yyyy' )
+
+    println("Class       : ${jobType}")
+    println("Name        : ${job.name}")
+    println("Root Dir    : ${job.rootDir}")
+    println("URL         : ${job.url}")
+    println("Absolute URL: ${job.absoluteUrl}")
+
+    //println job.toString()
+
+
+    if (!jobType.contains("Template") && !jobType.contains("Folder")) {
+
+        println ("Last Build	: " + job.getLastBuild().getTime() )
+
+        jobTriggers = job.getTriggers()
+        jobTriggers.each { trigger ->
+                println("trigger: ${trigger}")
+        }
+
+        if (jobType.contains("FreeStyle")) {
+            //println("Timer Trigger: ${job.TimerTrigger}")
+        }
+
+    }
+
+    println("")
+    println("Methods		: " + job.metaClass.methods*.name.sort().unique())
+    println("")
+    println("")
+    println("")
+
+}
