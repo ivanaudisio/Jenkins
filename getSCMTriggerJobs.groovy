@@ -13,15 +13,8 @@ jobs = Jenkins.instance.getAllItems()
 
 jobs.each {job ->
   
-	if (job instanceof com.cloudbees.hudson.plugins.folder.Folder) {
-    	inspect = false
-	} else if (job instanceof com.cloudbees.hudson.plugins.modeling.impl.jobTemplate.JobTemplate) {
-        inspect = false
-    } else {
-        inspect = true
-    }
-
-    if (inspect) {
+  if (job instanceof com.cloudbees.hudson.plugins.folder.Folder) { return }
+  if (job instanceof com.cloudbees.hudson.plugins.modeling.impl.jobTemplate.JobTemplate) { return }
       
         job.triggers.each{ descriptor, trigger ->
             if(trigger instanceof SCMTrigger) {
@@ -40,7 +33,6 @@ jobs.each {job ->
               //job.save()              
             }
         }
-    }
 }
 
 println("-----------------------------------------------------------------------------------------------------------------------------")
