@@ -42,6 +42,7 @@ Hudson.instance.items.each { job ->
     println("")
     println("Methods		: " + job.metaClass.methods*.name.sort().unique())
     println("")
+    job.metaClass.properties.each {println it.name }
     println("")
     println("")
 
