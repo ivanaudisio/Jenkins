@@ -1,5 +1,5 @@
 // author : Ivan Audisio
-// list jobs being trigguered on a timely basis
+// list jobs being trigguered with a pool
 
 import hudson.model.*
 import hudson.triggers.*
