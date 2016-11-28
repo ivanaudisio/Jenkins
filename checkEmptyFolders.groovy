@@ -1,5 +1,5 @@
 // author : Ivan Audisio
-// list folders with not items inside
+// list folders with no items inside
 
 import hudson.model.*
 import hudson.triggers.*
