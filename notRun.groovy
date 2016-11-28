@@ -6,7 +6,7 @@ use(TimeCategory) {
   // e.g. find jobs not run in last 6 months
   //timeFrame = (new Date() - 6.months)
   // e.g. find jobs not run in last 3 hours
-  timeFrame = (new Date() - 3. hour)
+  timeFrame = (new Date() - 3.hour)
   // e.g. find jobs not run in last day
 	//timeFrame = (new Date() - 1.days)
 }
