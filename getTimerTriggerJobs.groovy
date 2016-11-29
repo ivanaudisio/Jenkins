@@ -4,7 +4,7 @@
 import hudson.model.*
 import hudson.triggers.*
 
-jobs = Jenkins.instance.getAllItems()	// Get all jobs
+jobs = Jenkins.instance.getAllItems()	// Get all items in Jenkins
 def count = 0				// Counts number of jobs found using CRON
   
 println("------------------------------------------------------------------------")
