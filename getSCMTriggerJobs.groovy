@@ -19,7 +19,7 @@ jobs.each {job ->
 		job.triggers.each{ descriptor, trigger ->
 			// Check if the trigger is for SCM pooling
 			if(trigger instanceof SCMTrigger) {
-        // Verifies that the specs have been entered and prints the job's information
+        			// Verifies that the specs have been entered and prints the job's information
 				if (trigger.spec) {
 					count ++
 					println("Name        : ${job.name}")
