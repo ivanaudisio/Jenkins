@@ -1,38 +1,45 @@
 // author : Ivan Audisio
-// list jobs being trigguered with a pool
+// list jobs being trigguered on a timely basis
 
 import hudson.model.*
 import hudson.triggers.*
 
-println("-----------------------------------------------------------------------------------------------------------------------------")
-println("The following jobs are being executed with a Poll")
-println("-----------------------------------------------------------------------------------------------------------------------------")
+jobs = Jenkins.instance.getAllItems()	// Get all items in Jenkins
+def count = 0				// Counts number of jobs found using CRON
+  
+println("------------------------------------------------------------------------")
+println("The following jobs are being executed with a CRON job")
+println("------------------------------------------------------------------------")
 println("")
 
-jobs = Jenkins.instance.getAllItems()
-
 jobs.each {job ->
-  
-  if (job instanceof com.cloudbees.hudson.plugins.folder.Folder) { return }
-  if (job instanceof com.cloudbees.hudson.plugins.modeling.impl.jobTemplate.JobTemplate) { return }
-      
-        job.triggers.each{ descriptor, trigger ->
-            if(trigger instanceof SCMTrigger) {
-            println("Name        : ${job.name}")
-            println("Class       : ${job.class}")
-            println("Root Dir    : ${job.rootDir}")
-            println("URL         : ${job.url}")
-            println("Absolute URL: ${job.absoluteUrl}")
-            println("Trigger     : "+trigger.spec)
-            println("")
-            println("")
-              
-              //job.removeTrigger descriptor
-              //job.save()
-              //job.addTrigger(new TimerTrigger("$m $hr * * *"))
-              //job.save()              
-            }
-        }
+	// Check if Job contains the method getTriggers (skips templates and folders)
+	if (job.metaClass.getMetaMethod("getTriggers")) {
+		// Gets triggers from Job
+		job.triggers.each{ descriptor, trigger ->
+			// Check if the trigger is for SCM pooling
+			if(trigger instanceof SCMTrigger) {
+        // Verifies that the specs have been entered and prints the job's information
+				if (trigger.spec) {
+					count ++
+					println("Name        : ${job.name}")
+					println("Class       : ${job.class}")
+					println("Root Dir    : ${job.rootDir}")
+					println("URL         : ${job.url}")
+					println("Absolute URL: ${job.absoluteUrl}")
+					println("Trigger     : "+trigger.spec)
+					println("")
+					println("")
+					//The following code can be used to modify the triggers if needed.
+					//job.removeTrigger descriptor
+					//job.save()
+					//job.addTrigger(new TimerTrigger("$m $hr * * *"))
+					//job.save()				
+				}
+			}
+		}
+	}
 }
-
-println("-----------------------------------------------------------------------------------------------------------------------------")
+println("------------------------------------------------------------------------")
+println("${count} job(s) are being executed with CRON")
+println("------------------------------------------------------------------------")
