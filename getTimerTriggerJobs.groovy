@@ -13,7 +13,6 @@ println("-----------------------------------------------------------------------
 println("")
 
 jobs.each {job ->
-
 	// Check if Job contains the method getTriggers (skips templates and folders)
 	if (job.metaClass.getMetaMethod("getTriggers")) {
 		// Gets CRON triggers from Job
@@ -30,12 +29,12 @@ jobs.each {job ->
 					println("Trigger     : "+trigger.spec)
 					println("")
 					println("")
+					//The following code can be used to modify the triggers if needed.
+					//job.removeTrigger descriptor
+					//job.save()
+					//job.addTrigger(new TimerTrigger("$m $hr * * *"))
+					//job.save()				
 				}
-				//The following code can be used to modify the triggers if needed.
-				//job.removeTrigger descriptor
-				//job.save()
-				//job.addTrigger(new TimerTrigger("$m $hr * * *"))
-				//job.save()
 			}
 		}
 	}
