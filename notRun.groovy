@@ -34,7 +34,7 @@ jobs.each {job ->
 				println("Root Dir    : ${job.rootDir}")
 				println("URL         : ${job.url}")
 				println("Absolute URL: ${job.absoluteUrl}")
-				println("Last Build  :" + job.getLastBuild().getTime())
+				println("Last Build  : " + job.getLastBuild().getTime())
 				println("")
 				println("")
 			} 
