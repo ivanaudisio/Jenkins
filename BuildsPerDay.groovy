@@ -26,7 +26,8 @@ jobs.each {job ->
 
 		templateName = ""
 		buildString = ""
-		  
+		totalBuilds = 0
+		
 		for (i = days; i > 0; i--) {
 			count = 0
 			start = new Date() - (i - 1)
