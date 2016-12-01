@@ -1,15 +1,9 @@
-import groovy.time.TimeCategory
-use ( TimeCategory ) {
-  // e.g. find jobs not run in last 3 months
-  sometimeago = (new Date() - 1.hour)
-}
-
 Hudson.instance.items.each { job ->
 
 	//job.metaClass.properties.each {println it.name}
 	
 	//Jobs
-	if (job instanceof class org.jenkinsci.plugins.workflow.job.WorkflowJob) {
+	if (job instanceof org.jenkinsci.plugins.workflow.job.WorkflowJob) {
 	println("Name: ${job.name}")
 	println("Class: ${job.class}")
 	println("")
@@ -102,7 +96,7 @@ Hudson.instance.items.each { job ->
 	}
 	
 	//Folders
-	if (job instanceof class com.cloudbees.hudson.plugins.folder.Folder) {
+	if (job instanceof com.cloudbees.hudson.plugins.folder.Folder) {
 	println("Name: ${job.name}")
 	println("Class: ${job.class}")
 	println("")
@@ -154,7 +148,7 @@ Hudson.instance.items.each { job ->
 	}
 	
 	//Template
-	if (job instanceof class com.cloudbees.hudson.plugins.modeling.impl.jobTemplate.JobTemplate) {
+	if (job instanceof com.cloudbees.hudson.plugins.modeling.impl.jobTemplate.JobTemplate) {
 	println("Name: ${job.name}")
 	println("Class: ${job.class}")
 	println("")
@@ -200,30 +194,8 @@ Hudson.instance.items.each { job ->
 	}
 	//println job.toString()
 
-
-    if (!jobType.contains("Template") && !jobType.contains("Folder")) {
-
-        println ("Last Build	: " + job.getLastBuild().getTime() )
-
-      if (job.getLastBuild().getTime() < sometimeago) {
-      println ("older than 1 hour")
-      }else{
-      println ("newer than 1 hour")
-      }
-      
-        jobTriggers = job.getTriggers()
-        jobTriggers.each { trigger ->
-                println("trigger: ${trigger}")
-        }
-
-        if (jobType.contains("FreeStyle")) {
-            //println("Timer Trigger: ${job.TimerTrigger}")
-        }
-
-    }
-
     println("")
-    println("Methods		: " + job.metaClass.methods*.name.sort().unique())
+    //println("Methods		: " + job.metaClass.methods*.name.sort().unique())
     println("")
     
     println("")
