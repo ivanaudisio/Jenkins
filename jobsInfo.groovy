@@ -9,6 +9,7 @@ Hudson.instance.items.each { job ->
 	//job.metaClass.properties.each {println it.name}
 	
 	//Jobs
+	if (job instanceof class org.jenkinsci.plugins.workflow.job.WorkflowJob) {
 	println("Name: ${job.name}")
 	println("Class: ${job.class}")
 	println("")
@@ -98,8 +99,10 @@ Hudson.instance.items.each { job ->
 	println("estimatedDuration: ${job.estimatedDuration}")
 	println("characteristicEnvVars: ${job.characteristicEnvVars}")
 	println("defaultAuthentication: ${job.defaultAuthentication}")
-
+	}
+	
 	//Folders
+	if (job instanceof class com.cloudbees.hudson.plugins.folder.Folder) {
 	println("Name: ${job.name}")
 	println("Class: ${job.class}")
 	println("")
@@ -148,8 +151,10 @@ Hudson.instance.items.each { job ->
 	println("staplerFallback: ${job.staplerFallback}")
 	println("viewActions: ${job.viewActions}")
 	println("parent: ${job.parent}")
+	}
 	
 	//Template
+	if (job instanceof class com.cloudbees.hudson.plugins.modeling.impl.jobTemplate.JobTemplate) {
 	println("Name: ${job.name}")
 	println("Class: ${job.class}")
 	println("")
@@ -192,7 +197,7 @@ Hudson.instance.items.each { job ->
 	println("description: ${job.description}")
 	println("instantiable: ${job.instantiable}")
 	println("parent: ${job.parent}")
-	
+	}
 	//println job.toString()
 
 
