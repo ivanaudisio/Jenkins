@@ -6,8 +6,9 @@ import java.text.SimpleDateFormat;
 
 jobs = Jenkins.instance.getAllItems()	// Get all jenkins items
 
-days = 3
-headerString = "Job;Template"
+def days = 3
+def headerString = "Job;Template"
+def totalBuilds = 0
 
 for (i = days; i > 0; i--) {
   header = new Date() - (i - 1)
@@ -15,38 +16,37 @@ for (i = days; i > 0; i--) {
   headerString += ";" + header
 }
 
-println("${headerString}")
+println("${headerString};Total Builds")
 
 
 jobs.each {job ->
 
 	// Verify that the item contains the method getLastBuild (avoids templates and folders) 
 	if (job.metaClass.getMetaMethod("getLastBuild")) {
-  	  // Verifies that the job has been build at leat once
-templateName = ""
-      buildString = ""
-      
-      for (i = days; i > 0; i--) {
 
-  			 count = 0
-             start = new Date() - (i - 1)
-            start = start.getTime()
-            end = new Date() - i
-            end =  end.getTime();      
-            builds = job.getBuilds().byTimestamp(end, start)
-            builds.each{build -> count ++}
-            buildString += ";${count}"        
-      }
-      
-	  def model = com.cloudbees.hudson.plugins.modeling.impl.entity.EntityInstance.from(job)
-  if (model) {
-    templateName = "${model.modelId}"
- 
-  }
-	  
-      println("${job.name};${templateName}${buildString}")
-      //println("Methods		: " + job.metaClass.methods*.name.sort().unique())
+		templateName = ""
+		buildString = ""
+		  
+		for (i = days; i > 0; i--) {
+			count = 0
+			start = new Date() - (i - 1)
+			start = start.getTime()
+			end = new Date() - i
+			end =  end.getTime();      
+			builds = job.getBuilds().byTimestamp(end, start)
+			builds.each{build -> count ++}
+			buildString += ";${count}"  
+			totalBuilds += count			
+		}
+		
+		// Determines if the Job is build from a Template
+		def model = com.cloudbees.hudson.plugins.modeling.impl.entity.EntityInstance.from(job)
+		if (model) {
+			templateName = "${model.modelId}"
+		}
 
+		// Print Row in CSV format "Job,Tempalte,Day1,Day2,...,Total Builds"
+		println("${job.name};${templateName}${buildString};${totalBuilds}")
 	}
 }
 println("")
