@@ -7,8 +7,7 @@ import java.text.SimpleDateFormat;
 jobs = Jenkins.instance.getAllItems()	// Get all jenkins items
 
 days = 3
-headerString = "Job"
-
+headerString = "Job;Template"
 
 for (i = days; i > 0; i--) {
   header = new Date() - (i - 1)
@@ -24,12 +23,12 @@ jobs.each {job ->
 	// Verify that the item contains the method getLastBuild (avoids templates and folders) 
 	if (job.metaClass.getMetaMethod("getLastBuild")) {
   	  // Verifies that the job has been build at leat once
-
+templateName = ""
       buildString = ""
       
       for (i = days; i > 0; i--) {
 
-  			def count = 0
+  			 count = 0
              start = new Date() - (i - 1)
             start = start.getTime()
             end = new Date() - i
@@ -39,7 +38,13 @@ jobs.each {job ->
             buildString += ";${count}"        
       }
       
-      println("${job.name}${buildString}")
+	  def model = com.cloudbees.hudson.plugins.modeling.impl.entity.EntityInstance.from(job)
+  if (model) {
+    templateName = "${model.modelId}"
+ 
+  }
+	  
+      println("${job.name};${templateName}${buildString}")
       //println("Methods		: " + job.metaClass.methods*.name.sort().unique())
 
 	}
