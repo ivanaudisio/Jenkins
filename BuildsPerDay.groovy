@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 
 // TO DO
 // Add validation when entering stratTime and endTime (end needs to be higher)
-// Add specific date (remember to update how header is shown)
-// Able to set parameters to show in the CSV report
 // validate startTime and endTime format
 
 // ***************************************************
