@@ -8,13 +8,13 @@ import java.text.SimpleDateFormat;
 // ***************************************************
 def days = 3 // Ammount of days to report beginning from 'startingDate'. If 'startingDate' is not specified it reports the last number fo days specified here
 def startingDate = "" // Change the starting date for the report with [FORMAT: dd-mm-yyy] (e.g. 2-12-2016)
-def startTime = "" // Sets the time of the day to begin counting builds per job  [FORMAT: mm-ss-ms] (e.g. 06:20:00) If blank defaults to 00:00:00
-def endTime = "" // Sets the time of the day to end counting builds per job  [FORMAT: mm-ss-ms] (e.g. 18:20:00) If blank defaults to 23:59:59
-def showTotal = true // Show total number of builds per job when days are greater than 1
+def startTime = "" // Sets the time of the day to begin counting builds per job  [FORMAT: mm-ss-ms] (e.g. 06:20:00) If blank, it defaults to 00:00:00
+def endTime = "" // Sets the time of the day to end counting builds per job  [FORMAT: mm-ss-ms] (e.g. 18:20:00) If blank, it defaults to 23:59:59
+def showTotal = false // Show total number of builds per job when days are greater than 1
 def showTemplate = false // Show job template
 def showJobRootDir = false // Show job Root Directory
-def showJobURL = true // Show job URL
-def showJobAbsoluteURL = true // Show job abosolute URL
+def showJobURL = false // Show job URL
+def showJobAbsoluteURL = false // Show job abosolute URL
 
 // ***************************************************
 // INITIALIZE DEFAULT PARAMETERS
