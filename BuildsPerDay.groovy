@@ -3,21 +3,18 @@
 import groovy.time.TimeCategory
 import java.text.SimpleDateFormat;
 
-// TO DO
-// Add validation when entering stratTime and endTime (end needs to be higher)
-// validate startTime and endTime format
-
 // ***************************************************
 // CONFIGURATION
 // ***************************************************
-def days = 1 // Ammount of days to report to given date. If specificDay is not set the end point is today's date
-def specificDay = "" // Change end date for the report with format dd-mm-yyy (e.g. 2-12-2016)
-def startTime = "" // If left blank by default it starts at the beggining of the day 00:00:00 [24 hour format e.g. 06:20:00]
-def endTime = "" // If left blank by default it ends at the end of the day 23:59:00 [24 hour format e.g. 14:30:00]
+def days = 3 // Ammount of days to report beginning from 'startingDate'. If 'startingDate' is not specified it reports the last number fo days specified here
+def startingDate = "" // Change the starting date for the report with [FORMAT: dd-mm-yyy] (e.g. 2-12-2016)
+def startTime = "" // Sets the time of the day to begin counting builds per job  [FORMAT: mm-ss-ms] (e.g. 06:20:00) If blank defaults to 00:00:00
+def endTime = "" // Sets the time of the day to end counting builds per job  [FORMAT: mm-ss-ms] (e.g. 18:20:00) If blank defaults to 23:59:59
+def showTotal = true // Show total number of builds per job when days are greater than 1
 def showTemplate = false // Show job template
 def showJobRootDir = false // Show job Root Directory
-def showJobURL = false // Show job URL
-def showJobAbsoluteURL = false // Show job abosolute URL
+def showJobURL = true // Show job URL
+def showJobAbsoluteURL = true // Show job abosolute URL
 
 // ***************************************************
 // INITIALIZE DEFAULT PARAMETERS
@@ -38,9 +35,9 @@ showJobRootDir ? headerString += ";Job Root Dir" : "" // Add Job URL to header
 showJobURL ? headerString += ";Job URL" : "" // Add Job Path to header
 showJobAbsoluteURL ? headerString += ";Job Absolute URL" : "" // Add Job Path to header
 for (i = days; i > 0; i--) { // Add days to header	
-    if (specificDay) {
+    if (startingDate) {
         header = new Date()
-        header = header.parse('d-M-yyyy', "$specificDay") - (i - 1) // Parse given date
+        header = header.parse('d-M-yyyy', "$startingDate") + (days) - i  // Parse given date
         header = header.format('d-M-yyyy') // Set date format
     } else {
         header = new Date() - (i - 1) // Get today's date
@@ -48,7 +45,7 @@ for (i = days; i > 0; i--) { // Add days to header
     }
     headerString += ";" + header
 }
-(days > 1) ? headerString += ";Total Builds": "" // Add Total Number of builds to header
+(days > 1 && showTotal) ? headerString += ";Total Builds": "" // Add Total Number of builds to header
 println("${headerString}") // Print header
 
 // ***************************************************
@@ -71,9 +68,9 @@ jobs.each { job ->
 		for (i = days; i > 0; i--) {
 			count = 0 // Restart build count per Job
 
-			if (specificDay) {
+			if (startingDate) {
 				startDate = new Date()
-				startDate = startDate.parse('d-M-yyyy', "$specificDay") - (i - 1) // Set date format
+				startDate = startDate.parse('d-M-yyyy', "$startingDate") + (days) - i  // Set date format
 			} else {
 				startDate = new Date() - (i - 1) // Set starting day
 			}
@@ -81,9 +78,9 @@ jobs.each { job ->
 			startDate = Date.parse("d-M-yyyy HH:mm:ss", "${startDate} ${startTime}") // Set starting time
 			startDate = startDate.getTime() // Get Timestamp for the formed date
 
-			if (specificDay) {
+			if (startingDate) {
 				endDate = new Date()
-				endDate = endDate.parse('d-M-yyyy', "$specificDay") - (i - 1)
+				endDate = endDate.parse('d-M-yyyy', "$startingDate") + (days) - i 
 			} else {
 				endDate = new Date() - (i - 1) // Set ending day
 			}
@@ -113,7 +110,7 @@ jobs.each { job ->
 		showJobURL ? newRow += ";${job.url}" : "" // Add Job url
 		showJobAbsoluteURL ? newRow += ";${job.absoluteUrl}" : "" // Add Job absolute url
 		newRow += "${buildString}" // Add days
-			(days > 1) ? newRow += ";${totalBuilds}" : "" // Add total builds in given days
+			(days > 1 && showTotal) ? newRow += ";${totalBuilds}" : "" // Add total builds in given days
 		println("${newRow}") // Print all parameters
 	}
 }
