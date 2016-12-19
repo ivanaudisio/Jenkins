@@ -4,22 +4,22 @@
 
 General report with the following information:
 
-1) Master URL
-2) Master OS
-3) Jenkins instance ID
-4) Master version
-5) OS memory
-6) Master number of executors
-7) Slaves and number of executors
-8) CPU cores
-9) Java Version
-10) Heap size
+1) Master URL  
+2) Master OS  
+3) Jenkins instance ID  
+4) Master version  
+5) OS memory  
+6) Master number of executors  
+7) Slaves and number of executors  
+8) CPU cores    
+9) Java Version  
+10) Heap size  
 11) Number of Jobs
     - % of pipeline jobs
     - % of Maven jobs
     - % of freestyle jobs
-12) Empty folders
-13) Jobs utilizing pooling and CRON
+12) Empty folders  
+13) Jobs utilizing pooling and CRON  
 14) Jobs to be updated (Always recomend to upgrade to latest after a week of release)
 
 Notes
