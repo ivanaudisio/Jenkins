@@ -1,5 +1,5 @@
 // author : Ivan Audisio
-// list jobs not run in the last N days / last N months
+// list jobs not run in the last N days
 import groovy.time.TimeCategory
 import java.text.SimpleDateFormat;
 
