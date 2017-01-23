@@ -1,3 +1,8 @@
+//USE CASE
+//I have a job template (named job_template) with a parameter param. 
+//From this template I create a job instance (named job_instance) with the value X for param. 
+//I want to replace X by Y using a script.
+
 // Let's take the job to update
 def job = Jenkins.instance.getItem('job_instance')
 println "Updating job: ${job.fullName}"
