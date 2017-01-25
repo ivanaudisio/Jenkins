@@ -1,7 +1,7 @@
 def jobs = Jenkins.instance.getAllItems() // Get all jenkins items 
  
 //Header
-println ("Job Name,Template,URL,Builds: Days to Keep,Builds: Num. to keep,Artifacts: Days to keep,Artifacts: Num. to keep")
+println ("Job Name,URL,Builds: Days to Keep,Builds: Num. to keep,Artifacts: Days to keep,Artifacts: Num. to keep,Template")
 jobs.each { job -> 
 
   	template = ""
@@ -19,9 +19,9 @@ jobs.each { job ->
         
       	// Print Line with information found
       	if (d){
-          println("${job.name},${template},${job.absoluteUrl},${d.daysToKeep},${d.numToKeep},${d.artifactDaysToKeep},${d.artifactNumToKeep}")
+          println("${job.name},${job.absoluteUrl},${d.daysToKeep},${d.numToKeep},${d.artifactDaysToKeep},${d.artifactNumToKeep},${template}")
         }else{
-          println("${job.name},${template},${job.absoluteUrl},No Retention Policy")
+          println("${job.name},${job.absoluteUrl},No Retention Policy,,,,${template}")
         }
     }
 }
