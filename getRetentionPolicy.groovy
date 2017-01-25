@@ -1,7 +1,7 @@
 def jobs = Jenkins.instance.getAllItems() // Get all jenkins items 
  
 //Header
-println ("Job Name,URL,Days to Keep,Number to keep,Artifact Days to keep,Artifact Num. to keep")
+println ("Job Name,Template,URL,Days to Keep,Number to keep,Artifact Days to keep,Artifact Num. to keep")
 jobs.each { job -> 
 
   	template = ""
