@@ -41,4 +41,8 @@ job.metaClass.properties.each {println it.name}
 println("Methods: " + job.metaClass.methods*.name.sort().unique())
 
 }
+
+// Prints all of jenkins internal configurations
+def instance = Jenkins.getInstance()
+instance.metaClass.properties.each {println it.name}
 ```
