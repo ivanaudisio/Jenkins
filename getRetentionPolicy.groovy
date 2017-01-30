@@ -1,3 +1,8 @@
+import jenkins.*
+import jenkins.model.*
+import hudson.*
+import hudson.model.* 
+	
 def jobs = Jenkins.instance.getAllItems() // Get all jenkins items 
  
 //Header
