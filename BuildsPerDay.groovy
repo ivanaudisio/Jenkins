@@ -2,7 +2,11 @@
 // list jobs not run in the last N days
 import groovy.time.TimeCategory
 import java.text.SimpleDateFormat;
-
+import jenkins.*
+import jenkins.model.*
+import hudson.*
+import hudson.model.* 
+	
 // ***************************************************
 // CONFIGURATION
 // ***************************************************
