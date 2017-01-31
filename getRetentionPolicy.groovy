@@ -30,7 +30,8 @@ jobs.each { job ->
 	// Use Shell to get size
 	path = "${job.rootDir}/builds"
 	buildFolderSize = "du -hbs ${path}".execute().text
-
+	buildFolderSize = buildFolderSize.split(" ")[0];
+		
         // Get Retention policy
         def d = job.buildDiscarder
         
