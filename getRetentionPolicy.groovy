@@ -30,16 +30,18 @@ jobs.each { job ->
 	// Use Shell to get size
 	path = "${job.rootDir}/builds"
 	buildFolderSize = "du -hbs ${path}".execute().text
-	buildFolderSize = buildFolderSize.split(" ")[0];
+	buildFolderSize = buildFolderSize.replace("\n","").replace("\r\n","");
+      	buildFolderSize = buildFolderSize.split("\t")
+       	size = buildFolderSize[0]
 		
         // Get Retention policy
         def d = job.buildDiscarder
         
       	// Print Line with information found
       	if (d){
-          println("${job.name},${job.absoluteUrl},${d.daysToKeep},${d.numToKeep},${d.artifactDaysToKeep},${d.artifactNumToKeep},${template},${buildFolderSize}")
+          println("${job.name},${job.absoluteUrl},${d.daysToKeep},${d.numToKeep},${d.artifactDaysToKeep},${d.artifactNumToKeep},${template},${size}")
         }else{
-          println("${job.name},${job.absoluteUrl},No Retention Policy,,,,${template},${buildFolderSize}")
+          println("${job.name},${job.absoluteUrl},No Retention Policy,,,,${template},${size}")
         }
     }
 }
