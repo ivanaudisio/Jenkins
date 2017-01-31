@@ -25,8 +25,11 @@ jobs.each { job ->
         }
       	
       	// Get Build folder size for job
-       	buildFolder = new File("${job.rootDir}")
-		buildFolderSize = buildFolder.directorySize() * 0.001
+       	// buildFolder = new File("${job.rootDir}")
+	// buildFolderSize = buildFolder.directorySize() * 0.001
+	// Use Shell to get size
+	path = "${job.rootDir}/builds"
+	buildFolderSize = "du -hbs ${path}".execute().text
 
         // Get Retention policy
         def d = job.buildDiscarder
