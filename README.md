@@ -21,7 +21,8 @@ General report with the following information:
 12) Empty folders  
 13) Jobs utilizing pooling and CRON  
 14) Jobs to be updated (Always recomend to upgrade to latest after a week of release)  
-15) Retention policy
+15) Retention policy (folder size)
+16) timeout policies 
 
 Notes
 * Schedule Regular Restarts During Quiet Hours (Restart every 2 weeks is always recomended)
