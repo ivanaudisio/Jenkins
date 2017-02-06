@@ -10,7 +10,8 @@ println ("Job Name,URL,Builds: Days to Keep,Builds: Num. to keep,Artifacts: Days
 jobs.each { job -> 
 
   	template = ""
-  	model = ""
+  	modelFound = true
+	
 	// Verify that the item contains the method getLastBuild (avoids templates and folders)  
 	if (job.metaClass.getMetaMethod("getLastBuild")) { 
       	
@@ -18,30 +19,31 @@ jobs.each { job ->
       	try {
         	def model = com.cloudbees.hudson.plugins.modeling.impl.entity.EntityInstance.from(job)
         } catch (MissingPropertyException e){
-        	model = ""
+        	modelFound = false
         }
-        if (model) {
+        if (modelFound) {
             template = "${model.modelId}" // Get template path
         }
       	
       	// Get Build folder size for job
        	// buildFolder = new File("${job.rootDir}")
 	// buildFolderSize = buildFolder.directorySize() * 0.001
+	
 	// Use Shell to get size
-	path = "${job.rootDir}/builds"
-	buildFolderSize = "du -hbs ${path}".execute().text
-	buildFolderSize = buildFolderSize.replace("\n","").replace("\r\n","");
-      	buildFolderSize = buildFolderSize.split("\t")
-       	size = buildFolderSize[0]
+	//path = "${job.rootDir}/builds"
+	// buildFolderSize = "du -hbs ${path}".execute().text
+	// buildFolderSize = buildFolderSize.replace("\n","").replace("\r\n","");
+      	// buildFolderSize = buildFolderSize.split("\t")
+       	// size = buildFolderSize[0]
 		
         // Get Retention policy
         def d = job.buildDiscarder
         
       	// Print Line with information found
       	if (d){
-          println("${job.name},${job.absoluteUrl},${d.daysToKeep},${d.numToKeep},${d.artifactDaysToKeep},${d.artifactNumToKeep},${template},${size}")
+          println("${job.name},${job.absoluteUrl},${d.daysToKeep},${d.numToKeep},${d.artifactDaysToKeep},${d.artifactNumToKeep},${template}") //,${size}")
         }else{
-          println("${job.name},${job.absoluteUrl},No Retention Policy,,,,${template},${size}")
+          println("${job.name},${job.absoluteUrl},No Retention Policy,,,,${template}") //,${size}")
         }
     }
 }
