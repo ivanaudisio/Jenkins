@@ -1,4 +1,4 @@
-// author : Ivan Audisio
+// author : Ivan Audisi
 // list jobs not run in the last N days
 import groovy.time.TimeCategory
 import java.text.SimpleDateFormat;
