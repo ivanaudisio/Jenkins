@@ -41,7 +41,7 @@ jobs.each { job ->
         
       	// Print Line with information found
       	if (d){
-          println("${job.name},${job.absoluteUrl},${d.daysToKeep},${d.numToKeep},${d.artifactDaysToKeep},${d.artifactNumToKeep},${template}") //,${size}")
+          println("${job.name},${job.absoluteUrl},${d.daysToKeep},${d.numToKeep},${d.artifactDaysToKeep},${d.artifactNumToKeep},${template},This is a test") //,${size}")
         }else{
           println("${job.name},${job.absoluteUrl},No Retention Policy,,,,${template}") //,${size}")
         }
