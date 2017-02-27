@@ -10,7 +10,7 @@ import hudson.model.*
 // ***************************************************
 // CONFIGURATION
 // ***************************************************
-def days = 3 // Ammount of days to report beginning from 'startingDate'. If 'startingDate' is not specified it reports the last number of days starting from today's date
+def days = 4 // Ammount of days to report beginning from 'startingDate'. If 'startingDate' is not specified it reports the last number of days starting from today's date
 def startingDate = "" // Change the starting date for the report with [FORMAT: dd-mm-yyy] (e.g. 2-12-2016)
 def startTime = "" // Sets the time of the day to begin counting builds per job  [FORMAT: mm-ss-ms] (e.g. 06:20:00) If blank, it defaults to 00:00:00
 def endTime = "" // Sets the time of the day to end counting builds per job  [FORMAT: mm-ss-ms] (e.g. 18:20:00) If blank, it defaults to 23:59:59
