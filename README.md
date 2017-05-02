@@ -48,8 +48,20 @@ def instance = Jenkins.getInstance()
 instance.metaClass.properties.each {println it.name}
 
 // Print lines to show values from properties
-def instance = Jenkins.getInstance()
-instance.metaClass.properties.each {
-    println "println \"${it.name}: \${item.${it.name}}\""
+def items = Jenkins.instance.getAllItems()
+
+items.each { item ->
+  	println "\n================================================"
+  	println item.name
+  	println item.class
+  	println ""
+  
+	item.metaClass.properties.each {
+    	println "println \"${it.name}: \${item.${it.name}}\""
+	}
+	println("\nMethods: " + item.metaClass.methods*.name.sort().unique())
+
 }
+
+println ''
 ```
