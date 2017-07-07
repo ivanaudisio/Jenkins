@@ -1,0 +1,8 @@
+// This script installs all available plugins in the Client Master(s)
+
+// Get all available plugins in the specified UC.
+def updateCenter = Jenkins.instance.getUpdateCenter()
+def availablePlugins = updateCenter.getAvailables()
+
+// Deploy the available plugins
+availablePlugins.each { plugin -> plugin.deploy() }
