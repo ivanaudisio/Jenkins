@@ -3,6 +3,10 @@ import jenkins.model.*
 import hudson.plugins.ec2.*
 import com.amazonaws.services.ec2.model.*
 
+// Remove all clouds
+def cloudList = Jenkins.instance.clouds
+cloudList.each { cloudList.remove(it) }
+
 // http://www.pugme.co.uk/index.php/2017/07/07/automating-the-jenkins-ec2-plugin-using-groovy/
    
 // Declare tags for Slave Templates 
