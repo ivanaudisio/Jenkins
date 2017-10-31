@@ -23,7 +23,7 @@ for (entry in roles) {
   	allUsers = ""
 	users = entry.value
   	users.each { allUsers = allUsers + '"' + it + '",'}
-    println role.getName() + " = [" + allUsers + "],"
+    println role.getName() + " : [" + allUsers + "],"
 }
 println ']\n'
 
