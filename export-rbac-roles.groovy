@@ -20,8 +20,10 @@ for (entry in roles) {
 println '\ndef access = ['
 for (entry in roles) {
 	role = entry.key
+  	allUsers = ""
 	users = entry.value
-    println role.getName() + " : " + users  
+  	users.each { allUsers = allUsers + '"' + it + '",'}
+    println role.getName() + " = [" + allUsers + "],"
 }
 println ']\n'
 
