@@ -39,12 +39,10 @@ println '''
 // Set Role Based Access Control Authorization strategy
 def roleBasedAuthenticationStrategy = new RoleBasedAuthorizationStrategy()
 Jenkins.instance.setAuthorizationStrategy(roleBasedAuthenticationStrategy)
-
 Constructor[] constrs = Role.class.getConstructors();
 for (Constructor<?> c : constrs) {
   c.setAccessible(true);
 }
-
 // Make the method assignRole accessible
 Method assignRoleMethod = RoleBasedAuthorizationStrategy.class.getDeclaredMethod("assignRole", String.class, Role.class, String.class);
 assignRoleMethod.setAccessible(true);
@@ -55,13 +53,13 @@ for (entry in roles) {
     roleName = role.getName()
 
     println '''Set<Permission> ''' + roleName + '''PermissionSet = new HashSet<Permission>();
-adminPermissions.each { p ->
-	def permission = Permission.fromId(p);
-	if (permission != null) {
-   		''' + roleName + '''PermissionSet.add(permission);
- 	} else {
-   		println("${p} is not a valid permission ID (ignoring)")
- 	}
+permissions_''' + role.getName() + '''.each { p ->
+   def permission = Permission.fromId(p);
+   if (permission != null) {
+      ''' + roleName + '''PermissionSet.add(permission);
+   } else {
+      println("${p} is not a valid permission ID (ignoring)")
+   }
 }
 '''
 }
