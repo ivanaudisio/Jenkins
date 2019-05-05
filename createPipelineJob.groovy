@@ -1,12 +1,14 @@
 import hudson.plugins.git.*;
 
 scmURL = 'git@github.com:dermeister0/Tests.git'
+scmName = null
+scmRefspec = null
 scmCredential = 'jenkins-credential'
-scmBranch = "*/develop"
+scmBranch = "*/master"
 jenkinsfileName = "Jenkinsfile"
-pipelineName = "seedPipeline"
+pipelineName = "Example pipeline"
 
-def scm = new GitSCM([new UserRemoteConfig(scmURL, null, null, scmCredential)], [new BranchSpec(scmBranch)], false, null, null, null, null)
+def scm = new GitSCM([new UserRemoteConfig(scmURL, scmName, scmRefspec, scmCredential)], [new BranchSpec(scmBranch)], false, null, null, null, null)
 def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition(scm, jenkinsfileName)
 def parent = Jenkins.instance
 def job = new org.jenkinsci.plugins.workflow.job.WorkflowJob(parent, pipelineName)
